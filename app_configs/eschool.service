@@ -1,0 +1,14 @@
+[Unit]
+Description=eSchool Application
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/eSchool/target
+ExecStart=/usr/bin/java -jar /home/ubuntu/eSchool/target/eschool.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
