@@ -11,7 +11,6 @@ This project deploys the eSchool Java web application on AWS using Terraform, wi
 ## Prerequisites
 - AWS CLI configured
 - Terraform installed
-- SSH key pair
 
 ## Deployment
 
@@ -23,13 +22,15 @@ This project deploys the eSchool Java web application on AWS using Terraform, wi
 ### 2. Infrastructure
 ```bash
 cd terraform
+cp terraform.tfvars.example terraform.tfvars
+# Fill in your AWS credentials in terraform.tfvars
 terraform init
 terraform apply
 ```
 
 ### 3. Database Setup (on DB instance)
 ```bash
-sudo mysql < app_configs/db_setup.sql
+DB_USER=eschool DB_PASS=yourpassword envsubst < app_configs/db_setup.sql | sudo mysql
 ```
 
 ### 4. Application Setup (on Web instance)
