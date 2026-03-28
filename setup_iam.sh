@@ -1,9 +1,12 @@
 #!/bin/bash
-aws iam create-user --user-name eschool-admin
+USER_NAME="eschool-admin"
 
-aws iam attach-user-policy --user-name eschool-admin --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+if aws iam get-user --user-name $USER_NAME 2>/dev/null; then
+  echo "User $USER_NAME already exists"
+else
+  aws iam create-user --user-name $USER_NAME
+  aws iam attach-user-policy --user-name $USER_NAME --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+fi
 
-aws iam create-access-key --user-name eschool-admin > credentials.json
-
+aws iam create-access-key --user-name $USER_NAME > credentials.json
 echo "Credentials saved to credentials.json"
-echo "Access Key ID: $(cat credentials.json | python3 -c "import sys, json; print(json.load(sys.stdin)['AccessKey']['AccessKeyId'])")"
