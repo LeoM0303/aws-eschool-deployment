@@ -14,3 +14,9 @@ variable "region" {
   description = "AWS region"
   default     = "us-east-1"
 }
+
+variable "allowed_ssh_cidr" {
+  type        = string
+  description = "CIDR block allowed to SSH into instances"
+  default     = "0.0.0.0/0"
+}
